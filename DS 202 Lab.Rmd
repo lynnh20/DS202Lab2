@@ -32,8 +32,7 @@ dim(choco)
 library(ggplot2)
 library(dplyr)
 
-choco %>% ggplot(aes(x = Rating, fill = as.factor(Review.Date))) + geom_bar()
-```
+choco %>% ggplot(aes(x = as.factor(Review.Date))) + geom_bar() + xlab("year")
 
 
 
