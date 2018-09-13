@@ -61,8 +61,15 @@ choco %>% filter(Company.Location %in% c("U.S.A.", "France", "Canada")) %>% ggpl
 From these boxplots, we can see that Canada, France, and the U.S.A have the same median. Canadians seem to be more likely to give higher ratings, while Americans seem to be more likely to give lower ratings.
 
 
+Individual answers (just the code for now):
 
-
+```{r}
+library(ggplot2)
+ggplot(data=choco, aes(Rating))+geom_histogram()
+ggplot(data = choco, aes(x=Rating, y= Cocoa.Pct))+geom_jitter()
+choco2<- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
+ggplot(data = choco2, aes(x=Company.Location, y=Rating))+geom_boxplot()
+```
 
 
 
