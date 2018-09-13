@@ -23,3 +23,18 @@ When you click the **Knit** button a document will be generated that includes bo
 choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
 head(choco)
 ```
+
+```{r}
+head(choco)
+str(choco)
+dim(choco)
+```
+#1852 bars of chocolate were rated
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+choco %>% ggplot(aes(x = Rating, fill = as.factor(Review.Date))) + geom_bar()
+```
