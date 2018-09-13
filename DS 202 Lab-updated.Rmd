@@ -1,0 +1,72 @@
+---
+title: "DS202 Lab"
+author: "Lynn Huang"
+date: "September 13, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+
+```{r}
+head(choco)
+str(choco)
+dim(choco)
+```
+#1852 bars of chocolate were rated
+
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+choco %>% ggplot(aes(x = as.factor(Review.Date))) + geom_bar() + xlab("year")
+```
+
+#Individual questions
+
+How are ratings distributed?
+```{r}
+choco %>% ggplot(aes(x = Rating)) + geom_histogram()
+```
+
+The distribution of ratings is left skewed with a center of approximately 3.5, and one high outlier of 5. 
+
+
+Do ratings depend on the cocoa percentage of a chocolate bar?
+```{r}
+choco %>% ggplot(aes(x= Cocoa.Pct, y = Rating)) + geom_point()
+```
+
+No clear trends can be seen from the scatterplot of Cocoa percent and rating. They seem to be independent. 
+
+
+How do ratings compare across different company locations?
+```{r}
+choco %>% filter(Company.Location %in% c("U.S.A.", "France", "Canada")) %>% ggplot(aes(x = Company.Location, y = Rating)) + geom_boxplot() 
+```
+
+From these boxplots, we can see that Canada, France, and the U.S.A have the same median. Canadians seem to be more likely to give higher ratings, while Americans seem to be more likely to give lower ratings.
+
+
+
+
+
+
+
+
+
+
+
