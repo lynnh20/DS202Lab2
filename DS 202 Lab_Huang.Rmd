@@ -61,7 +61,7 @@ choco %>% filter(Company.Location %in% c("U.S.A.", "France", "Canada")) %>% ggpl
 From these boxplots, we can see that Canada, France, and the U.S.A have the same median. Canadians seem to be more likely to give higher ratings, while Americans seem to be more likely to give lower ratings.
 
 
-Individual answers (just the code for now):
+Individual answers (just the code for now): 
 
 ```{r}
 library(ggplot2)
@@ -70,7 +70,25 @@ ggplot(data = choco, aes(x=Rating, y= Cocoa.Pct))+geom_jitter()
 choco2<- dplyr::filter(choco, Company.Location %in% c("U.S.A.", "France", "Canada"))
 ggplot(data = choco2, aes(x=Company.Location, y=Rating))+geom_boxplot()
 ```
+Exploration Question
 
+#Which countries produce chocolate high rated chocolate with high cocoa %?
+
+Below is a scatterplot of Cocoa Percentage vs Rating. As we can see, a majority of the chocolate rated has a cocoa percentage greater than 60%. However, few chocolates are rated 4 or higher. 
+```{r}
+choco %>% ggplot(aes(x = Cocoa.Pct, y = Rating)) + geom_point()
+```
+
+To determine which countries produced higher rated chocolates, we took a subset of all observations where the cocoa percentage was higher than 60, and the rating for the chocolate was higher than 6. This subset contained 100 observations. 
+```{r}
+choco2 = choco %>% filter(Cocoa.Pct > 60 & Rating >= 4)
+head(choco2)
+```
+
+These observations are then plotted by the location of the company in a bar chart. We can see that 16 different countries are included in this subset: Australia, Belgium, Canada, Columbia, Ecuador, France, Germany, Guatemale, Italy, Madagascar, Sao Tome, Scotland, Spain, Sqitzerland, U.K.,and the U.S.A. Of these countries, Canada, France, Italy, and the U.S.A produce the highest amount of chocolates with high coca percentage that are high rated, with France and the U.S.A being the most significant producers.
+```{r}
+choco2 %>% ggplot(aes(x = Company.Location, fill = Company.Location)) + geom_bar() +theme(axis.text.x = element_text(angle = 45), legend.position = "None")
+```
 
 
 
