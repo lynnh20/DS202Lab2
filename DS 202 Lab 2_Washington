@@ -1,0 +1,92 @@
+---
+title: "DS 202 Lab 2"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+## Reading the Data
+```{r}
+choco <- read.csv("https://ds202-at-isu.github.io/labs/data/choco.csv")
+head(choco)
+```
+
+#Data Exploration
+## Question Set (Team)
+
+<font color = grey> 1. What is the overall number of chocolate bars rated? </font>
+```{r}
+dim(choco)
+```
+There are 1852 chocolate bars rated
+
+<font color = grey> 2. How does the number of ratings depend on the year? Draw a bar chart of the number of reports. </font>
+```{r}
+# count sum of reviews for each year
+years = c(2006:2017)
+
+counts = c()
+k = 1
+for (i in years){
+  counts[k] = sum(choco$Review.Date == i)
+  k = k+1
+}
+
+choco_year = as.data.frame(cbind(years, counts))
+
+# create bar chart
+ggplot(choco_year, aes(x = years, y = counts)) +
+  geom_bar(stat = 'identity')
+```
+
+There appears to be an increasing trend in chocolate ratings as time moves forward.
+
+## Question Set (Individual)
+<font color = grey> 1. How are ratings distributed? Draw a histogram of ratings and describe it. Don’t forget to mention outliers, if there are any. </font>
+```{r}
+ggplot(choco, aes(x = Rating))+
+  geom_histogram()
+```
+
+The ratings form a unimodal distribution that is slightly skewed to the left.  There are possible outliers at 1 and 5.
+
+<font color = grey> 2. Do ratings depend on the cocoa percentage of a chocolate bar? </font>
+```{r}
+ggplot(choco, aes(x = Cocoa.Pct, y = Rating))+
+  geom_jitter()
+```
+
+There does not appear to be a relationship between chocolate ratings and cocoa percentages from the scatterplot above.
+
+<font color = grey> 3. How do ratings compare across different company locations? Focus on the three locations with the most ratings: </font>
+```{r}
+chorox <- choco[(choco$Company.Location %in% c('U.S.A.','France','Canada')),]
+
+ggplot(chorox, aes(x = Company.Location, y = Rating)) +
+  geom_boxplot()
+```
+
+## Team Question
+<font color = grey> 1. Dark chocolate with +70% cocoa are believe to have health benefits. Which North American countries produce "healthy" dark chocolate with the highest ratings? </font>
+```{r}
+#Identify dark chocolate in high producing locations
+choco_dark <- choco[(choco$Cocoa.Pct >= 70) & (choco$Company.Location %in% c('Canada', 'Colombia', 'Ecuador','Guatemala', 'U.S.A.')),]
+                                                 
+# Original Lynn List                              c('Australia', 'Belgium', 'Canada', 'Colombia', 'Ecuador', 'France', 'Germany', 'Guatemala', 'Italy', 'Madagascar', 'Sao Tome', 'Scotland', 'Spain', 'Switzerland', 'U.K.', 'U.S.A.')),]
+
+# chart Choca% and Ratings
+ggplot(choco_dark, aes(x = Cocoa.Pct, y = Rating)) +
+  geom_point()+
+  facet_wrap(~Company.Location)
+```
+
+```{r}
+choco_dark %>% group_by(Company.Location) %>% summarise(mean(Rating))
+
+ggplot(choco_dark, aes(x = Company.Location, y = Rating)) +
+  geom_boxplot()
+```
+
+From the distribution of dark chocolates, we see that the five American countries have median ratings between 3 and 3.5 with Ecuador having the lowest (and the widest spread) followed by Canada, Guatemala, and U.S.A. at with similar medians, and Colombia with the highest median rating.  It is worth noting that while Columbia makes chocolate with +70% cocoa, it does not produce chocolate as dark as Canada, Ecuador, or U.S.A. do.
