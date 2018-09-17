@@ -90,3 +90,10 @@ ggplot(choco_dark, aes(x = Company.Location, y = Rating)) +
 ```
 
 From the distribution of dark chocolates, we see that the five American countries have median ratings between 3 and 3.5 with Ecuador having the lowest (and the widest spread) followed by Canada, Guatemala, and U.S.A. at with similar medians, and Colombia with the highest median rating.  It is worth noting that while Columbia makes chocolate with +70% cocoa, it does not produce chocolate as dark as Canada, Ecuador, or U.S.A. do.
+
+#Workflow: 
+```
+We used Lynn's GitHub as the main 'hub' to organize our work. She uploaded a file answering the beginning questions in R markdown, and as we discussed and proposed changes to the answers, we edited them and sent pull requests to her.
+We worked on the individual questions on our own, and sent in requests for all of those, too. This used up all the time we had in class, so before we left, we assigned each of our group members responsibilities to finish the lab (Aisha summarizing the individual questions, Lynn handling the exploration question, 
+and Prateek finishing the workflow and summary. We worked on these on our own, and as they were finished, sent in the changes to a new lab file (Aisha's), which contained all the changes.
+```
