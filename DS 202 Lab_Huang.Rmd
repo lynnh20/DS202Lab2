@@ -79,13 +79,13 @@ Below is a scatterplot of Cocoa Percentage vs Rating. As we can see, a majority 
 choco %>% ggplot(aes(x = Cocoa.Pct, y = Rating)) + geom_point()
 ```
 
-To determine which countries produced higher rated chocolates, we took a subset of all observations where the cocoa percentage was higher than 60, and the rating for the chocolate was higher than 6. This subset contained 100 observations. 
+To determine which countries produced higher rated chocolates, we took a subset of all observations where the cocoa percentage was higher than 60, and the rating for the chocolate was higher than 4. This subset contained 100 observations. 
 ```{r}
 choco2 = choco %>% filter(Cocoa.Pct > 60 & Rating >= 4)
 head(choco2)
 ```
 
-These observations are then plotted by the location of the company in a bar chart. We can see that 16 different countries are included in this subset: Australia, Belgium, Canada, Columbia, Ecuador, France, Germany, Guatemale, Italy, Madagascar, Sao Tome, Scotland, Spain, Sqitzerland, U.K.,and the U.S.A. Of these countries, Canada, France, Italy, and the U.S.A produce the highest amount of chocolates with high coca percentage that are high rated, with France and the U.S.A being the most significant producers.
+These observations are then plotted by the location of the company in a bar chart. We can see that 16 different countries are included in this subset: Australia, Belgium, Canada, Columbia, Ecuador, France, Germany, Guatemale, Italy, Madagascar, Sao Tome, Scotland, Spain, Sqitzerland, U.K.,and the U.S.A. Of these countries, Canada, France, Italy, and the U.S.A produce the highest amount of chocolates with cocoa percentage >60% that are high rated, with France and the U.S.A being the most significant producers.
 ```{r}
 choco2 %>% ggplot(aes(x = Company.Location, fill = Company.Location)) + geom_bar() +theme(axis.text.x = element_text(angle = 45), legend.position = "None")
 ```
